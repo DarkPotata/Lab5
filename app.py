@@ -16,6 +16,10 @@ class Task:
         status = "✓" if self.completed else "✗"
         priority_symbol = {"high": "🔴", "normal": "🟡", "low": "🟢"}.get(self.priority, "")
         return f"[{status}] {priority_symbol} {self.title}"
+        
+    def set_priority(self, new_priority):
+        if new_priority in ["high", "normal", "low"]:
+            self.priority = new_priority
 
 
 class TaskManager:
@@ -43,6 +47,12 @@ class TaskManager:
     def sort_by_priority(self):
         priority_order = {"high": 1, "normal": 2, "low": 3}
         self.tasks.sort(key=lambda t: priority_order.get(t.priority, 2))
+        
+    def update_task_priority(self, index, new_priority):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index].set_priority(new_priority)
+            return True
+        return False
 
 
 def main():
