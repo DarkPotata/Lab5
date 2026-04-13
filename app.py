@@ -14,9 +14,9 @@ class Task:
     
     def __str__(self):
         status = "✓" if self.completed else "✗"
-        priority_symbol = {"high": "🔴", "normal": "🟡", "low": "🟢"}.get(self.priority, "")
-        return f"[{status}] {priority_symbol} {self.title}"
-        
+        tags_info = f" #{' #'.join(self.tags)}" if self.tags else ""
+        return f"[{status}] {self.title}{tags_info}"
+
     def set_priority(self, new_priority):
         if new_priority in ["high", "normal", "low"]:
             self.priority = new_priority
