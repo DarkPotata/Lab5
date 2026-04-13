@@ -21,6 +21,18 @@ class Task:
     def set_deadline(self, date_string):
         self.deadline = date_string
         
+    def days_until_deadline(self, current_date=None):
+        if not self.deadline:
+            return None
+        
+        if current_date is None:
+            current_date = datetime.now().strftime("%Y-%m-%d")
+        
+        deadline_date = datetime.strptime(self.deadline, "%Y-%m-%d")
+        current = datetime.strptime(current_date, "%Y-%m-%d")
+        days = (deadline_date - current).days
+        return days
+        
 
 class TaskManager:
     def __init__(self):
@@ -54,6 +66,15 @@ class TaskManager:
                 if task.deadline < current_date:
                     overdue.append(task)
         return overdue
+    
+    def get_tasks_with_urgency(self, current_date=None):
+        urgent_tasks = []
+        for task in self.tasks:
+            if not task.completed and task.deadline:
+                days = task.days_until_deadline(current_date)
+                if days is not None and days <= 3:
+                    urgent_tasks.append(task)
+        return urgent_tasks
 
 
 def main():
