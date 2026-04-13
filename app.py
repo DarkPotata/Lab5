@@ -2,6 +2,7 @@
 Task Manager Application
 Version 1.0
 """
+from datetime import datetime
 
 class Task:
     def __init__(self, title):
@@ -42,6 +43,17 @@ class TaskManager:
             self.tasks[index].set_deadline(deadline)
             return True
         return False
+        
+    def get_overdue_tasks(self, current_date=None):
+        if current_date is None:
+            current_date = datetime.now().strftime("%Y-%m-%d")
+        
+        overdue = []
+        for task in self.tasks:
+            if not task.completed and task.deadline:
+                if task.deadline < current_date:
+                    overdue.append(task)
+        return overdue
 
 
 def main():
@@ -49,6 +61,13 @@ def main():
     manager.add_task("Task 1")
     manager.add_task("Task 2")
     manager.add_task("Task 3")
+    manager.add_task("Report", "2026-04-01")
+    manager.add_task("Presentation", "2026-04-15")
+    manager.add_task("Meeting notes", "2026-04-05")
+    
+    print("\nOverdue tasks:")
+    for task in manager.get_overdue_tasks("2026-04-10"):
+        print(f"  {task}")
     
     print("All tasks:")
     for task in manager.get_all_tasks():
