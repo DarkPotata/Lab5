@@ -14,7 +14,8 @@ class Task:
     
     def __str__(self):
         status = "✓" if self.completed else "✗"
-        return f"[{status}] {self.title}"
+        deadline_info = f" [due: {self.deadline}]" if self.deadline else ""
+        return f"[{status}] {self.title}{deadline_info}"
         
     def set_deadline(self, date_string):
         self.deadline = date_string
