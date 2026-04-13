@@ -32,6 +32,13 @@ class TaskManager:
     
     def count_tasks(self):
         return len(self.tasks)
+    
+    def get_high_priority_tasks(self):
+        high_priority = []
+        for task in self.tasks:
+            if task.priority == "high":
+                high_priority.append(task)
+        return high_priority
 
 
 def main():
@@ -42,6 +49,13 @@ def main():
     
     print("All tasks:")
     for task in manager.get_all_tasks():
+        print(f"  {task}")
+    
+    manager.add_task("Urgent task", "high")
+    manager.add_task("Important task", "high")
+    
+    print("\nHigh priority tasks:")
+    for task in manager.get_high_priority_tasks():
         print(f"  {task}")
     
     print(f"\nTotal tasks: {manager.count_tasks()}")
