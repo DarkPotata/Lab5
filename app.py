@@ -7,6 +7,7 @@ class Task:
     def __init__(self, title):
         self.title = title
         self.completed = False
+        self.tags = []  # list of tags
     
     def complete(self):
         self.completed = True
@@ -20,8 +21,10 @@ class TaskManager:
     def __init__(self):
         self.tasks = []
     
-    def add_task(self, title):
+    def add_task(self, title, tags=None):
         task = Task(title)
+        if tags:
+            task.tags = tags
         self.tasks.append(task)
         return task
     
