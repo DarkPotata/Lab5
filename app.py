@@ -39,6 +39,10 @@ class TaskManager:
             if task.priority == "high":
                 high_priority.append(task)
         return high_priority
+    
+    def sort_by_priority(self):
+        priority_order = {"high": 1, "normal": 2, "low": 3}
+        self.tasks.sort(key=lambda t: priority_order.get(t.priority, 2))
 
 
 def main():
@@ -56,6 +60,11 @@ def main():
     
     print("\nHigh priority tasks:")
     for task in manager.get_high_priority_tasks():
+        print(f"  {task}")
+        
+    manager.sort_by_priority()
+    print("\nTasks sorted by priority:")
+    for task in manager.get_all_tasks():
         print(f"  {task}")
     
     print(f"\nTotal tasks: {manager.count_tasks()}")
