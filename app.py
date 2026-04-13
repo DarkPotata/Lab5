@@ -14,7 +14,8 @@ class Task:
     
     def __str__(self):
         status = "✓" if self.completed else "✗"
-        return f"[{status}] {self.title}"
+        tags_info = f" #{' #'.join(self.tags)}" if self.tags else ""
+        return f"[{status}] {self.title}{tags_info}"
         
     def add_tag(self, tag):
         if tag not in self.tags:
