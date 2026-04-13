@@ -5,8 +5,9 @@ Version 1.0
 
 class Task:
     def __init__(self, title):
-        self.title = title
-        self.completed = False
+            self.title = title
+            self.completed = False
+            self.deadline = None  # string date "YYYY-MM-DD"
     
     def complete(self):
         self.completed = True
@@ -15,12 +16,9 @@ class Task:
         status = "✓" if self.completed else "✗"
         return f"[{status}] {self.title}"
         
-    class Task:
-        def __init__(self, title):
-            self.title = title
-            self.completed = False
-            self.deadline = None  # string date "YYYY-MM-DD"
-
+    def set_deadline(self, date_string):
+        self.deadline = date_string
+        
 
 class TaskManager:
     def __init__(self):
@@ -37,6 +35,12 @@ class TaskManager:
     
     def count_tasks(self):
         return len(self.tasks)
+        
+    def set_task_deadline(self, index, deadline):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index].set_deadline(deadline)
+            return True
+        return False
 
 
 def main():
