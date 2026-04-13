@@ -14,14 +14,21 @@ class Task:
     def __str__(self):
         status = "✓" if self.completed else "✗"
         return f"[{status}] {self.title}"
+        
+    class Task:
+        def __init__(self, title):
+            self.title = title
+            self.completed = False
+            self.deadline = None  # string date "YYYY-MM-DD"
 
 
 class TaskManager:
     def __init__(self):
         self.tasks = []
     
-    def add_task(self, title):
+    def add_task(self, title, deadline=None):
         task = Task(title)
+        task.deadline = deadline
         self.tasks.append(task)
         return task
     
