@@ -59,6 +59,21 @@ class TaskManager:
             if any(task.has_tag(tag) for tag in tags_list):
                 filtered_tasks.append(task)
         return filtered_tasks
+        
+    def get_tag_statistics(self):
+        tag_count = {}
+        for task in self.tasks:
+            for tag in task.tags:
+                if tag in tag_count:
+                    tag_count[tag] += 1
+                else:
+                    tag_count[tag] = 1
+        return tag_count
+    
+    def get_most_used_tags(self, limit=5):
+        stats = self.get_tag_statistics()
+        sorted_tags = sorted(stats.items(), key=lambda x: x[1], reverse=True)
+        return sorted_tags[:limit]
 
 
 def main():
@@ -74,6 +89,11 @@ def main():
     task1 = manager.add_task("Study Git", ["study", "programming"])
     task2 = manager.add_task("Go to gym", ["health", "sport"])
     task3 = manager.add_task("Read book", ["study", "leisure"])
+    
+    print("\nTag statistics:")
+    stats = manager.get_tag_statistics()
+    for tag, count in stats.items():
+        print(f"  {tag}: {count} tasks")
     
     print("\nStudy tasks:")
     for task in manager.get_tasks_by_tag("study"):
