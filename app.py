@@ -14,7 +14,8 @@ class Task:
     
     def __str__(self):
         status = "✓" if self.completed else "✗"
-        return f"[{status}] {self.title}"
+        priority_symbol = {"high": "🔴", "normal": "🟡", "low": "🟢"}.get(self.priority, "")
+        return f"[{status}] {priority_symbol} {self.title}"
 
 
 class TaskManager:
