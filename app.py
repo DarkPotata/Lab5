@@ -15,6 +15,17 @@ class Task:
     def __str__(self):
         status = "✓" if self.completed else "✗"
         return f"[{status}] {self.title}"
+        
+    def add_tag(self, tag):
+        if tag not in self.tags:
+            self.tags.append(tag)
+    
+    def remove_tag(self, tag):
+        if tag in self.tags:
+            self.tags.remove(tag)
+    
+    def has_tag(self, tag):
+        return tag in self.tags
 
 
 class TaskManager:
