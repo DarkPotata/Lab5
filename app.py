@@ -45,6 +45,20 @@ class TaskManager:
     
     def count_tasks(self):
         return len(self.tasks)
+        
+    def get_tasks_by_tag(self, tag):
+        filtered_tasks = []
+        for task in self.tasks:
+            if task.has_tag(tag):
+                filtered_tasks.append(task)
+        return filtered_tasks
+    
+    def get_tasks_by_multiple_tags(self, tags_list):
+        filtered_tasks = []
+        for task in self.tasks:
+            if any(task.has_tag(tag) for tag in tags_list):
+                filtered_tasks.append(task)
+        return filtered_tasks
 
 
 def main():
@@ -55,6 +69,14 @@ def main():
     
     print("All tasks:")
     for task in manager.get_all_tasks():
+        print(f"  {task}")
+        
+    task1 = manager.add_task("Study Git", ["study", "programming"])
+    task2 = manager.add_task("Go to gym", ["health", "sport"])
+    task3 = manager.add_task("Read book", ["study", "leisure"])
+    
+    print("\nStudy tasks:")
+    for task in manager.get_tasks_by_tag("study"):
         print(f"  {task}")
     
     print(f"\nTotal tasks: {manager.count_tasks()}")
